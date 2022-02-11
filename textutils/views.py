@@ -4,11 +4,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 def index(request):
-    params = {'name':"saif",'learning':'Django'}
-    return render(request,'index.html',params)
+    return render(request,'index.html')
     # return HttpResponse("<h1>Home</h1>")
 
 def removePunc (request):
+    # Get Text from the User from webPage
+    djText = request.GET.get('text','default')
+    print(djText)
     return HttpResponse('Remove Punctuation')
 
 def capitalize (request):
