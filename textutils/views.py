@@ -33,7 +33,6 @@ def analyze (request):
         
         params = {'purpose': 'Removed Punctuation','analyzedText' : analyzed}
         djText = analyzed
-        # return render(request,'analyze.html',params)
     
     if (upperCase == 'on'):
         analyzed = ""
@@ -42,7 +41,6 @@ def analyze (request):
             
         params = {'purpose': 'UpperCase','analyzedText' : analyzed}
         djText = analyzed
-        # return render(request,'analyze.html',params)
         
     if (removeNewLine == 'on'):
             analyzed = ""
@@ -52,7 +50,6 @@ def analyze (request):
             
             params = {'purpose': 'New Line Remover','analyzedText' : analyzed}
             djText = analyzed
-            # return render(request,'analyze.html',params)
         
     if (removeExtraSpace == 'on'):
             analyzed = ""
@@ -64,7 +61,6 @@ def analyze (request):
             
             params = {'purpose': 'Extra Space Remover','analyzedText' : analyzed}
             djText = analyzed
-            # return render(request,'analyze.html',params)
         
     if (charCounter == 'on'):
             analyzed = ""

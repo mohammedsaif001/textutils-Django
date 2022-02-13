@@ -56,15 +56,15 @@
     <div class="alert alert-success" role="alert">
       <strong>Wecome to TextUtils</strong> -- Select to Apply Changes
     </div>
- 
-    <form class="container" action="/analyze" method="post"> {% csrf_token %}
+
+    <form class="container" action="/analyze" method="post">
+      {% csrf_token %}
       <div class="mb-3">
         <label for="exampleFormControlTextarea" class="form-label"
           >Welcome to Text Analyzer | Enter Your Text Below</label
         >
         <textarea name="text" class="form-control" col="9" rows="5"></textarea>
       </div>
-
 
       <div class="form-check form-switch">
         <input
