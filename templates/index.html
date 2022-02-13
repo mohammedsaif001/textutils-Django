@@ -56,8 +56,8 @@
     <div class="alert alert-success" role="alert">
       <strong>Wecome to TextUtils</strong> -- Select to Apply Changes
     </div>
-
-    <form class="container" action="/analyze" method="get">
+ 
+    <form class="container" action="/analyze" method="post"> {% csrf_token %}
       <div class="mb-3">
         <label for="exampleFormControlTextarea" class="form-label"
           >Welcome to Text Analyzer | Enter Your Text Below</label

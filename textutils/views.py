@@ -10,45 +10,52 @@ def index(request):
 
 def analyze (request):
     # Get Text from User in the TextArea
-    djText = request.GET.get('text','default')
+    djText = request.POST.get('text','default')
     
     # Getting the status of checkbox
-    removepunc = request.GET.get('removepunc','off')
-    upperCase = request.GET.get('upperCase','off')
-    removeNewLine = request.GET.get('removeNewLine','off')
-    removeExtraSpace =request.GET.get('removeExtraSpace','off')
-    charCounter =request.GET.get('charCount','off')
+    removepunc = request.POST.get('removepunc','off')
+    upperCase = request.POST.get('upperCase','off')
+    removeNewLine = request.POST.get('removeNewLine','off')
+    removeExtraSpace =request.POST.get('removeExtraSpace','off')
+    charCounter =request.POST.get('charCount','off')
     
     punctuations = ''' 
     '~`!@#$%^&*()-_=+\|}{":?><,./;'[]\}
     '''
-    analyzed = ""
+    
     
     
     if removepunc == "on":
+        analyzed = ""
         for char in djText:
             if char not in punctuations:
                 analyzed=analyzed+char
         
         params = {'purpose': 'Removed Punctuation','analyzedText' : analyzed}
-        return render(request,'analyze.html',params)
+        djText = analyzed
+        # return render(request,'analyze.html',params)
     
-    elif (upperCase == 'on'):
-            for char in djText:
+    if (upperCase == 'on'):
+        analyzed = ""
+        for char in djText:
                 analyzed = analyzed + char.upper()
             
-            params = {'purpose': 'UpperCase','analyzedText' : analyzed}
-            return render(request,'analyze.html',params)
+        params = {'purpose': 'UpperCase','analyzedText' : analyzed}
+        djText = analyzed
+        # return render(request,'analyze.html',params)
         
-    elif (removeNewLine == 'on'):
+    if (removeNewLine == 'on'):
+            analyzed = ""
             for char in djText:
-                if char!="\n":
+                if char!="\n" and char!="\r":
                     analyzed = analyzed + char
             
             params = {'purpose': 'New Line Remover','analyzedText' : analyzed}
-            return render(request,'analyze.html',params)
+            djText = analyzed
+            # return render(request,'analyze.html',params)
         
-    elif (removeExtraSpace == 'on'):
+    if (removeExtraSpace == 'on'):
+            analyzed = ""
             for index,char in enumerate(djText):
                 if djText[index] == " " and djText[index+1] == " ":
                     pass
@@ -56,16 +63,21 @@ def analyze (request):
                     analyzed = analyzed + char
             
             params = {'purpose': 'Extra Space Remover','analyzedText' : analyzed}
-            return render(request,'analyze.html',params)
+            djText = analyzed
+            # return render(request,'analyze.html',params)
         
-    elif (charCounter == 'on'):
+    if (charCounter == 'on'):
+            analyzed = ""
             count = 0
             for char in djText:
                 count+=1
             
             message = f"{djText} has {count} character/s"
             params = {'purpose': 'Character Counter','analyzedText' : message}
-            return render(request,'analyze.html',params)
                 
-    else:
-        return HttpResponse("Error")
+
+    if (removepunc!='on' and removeNewLine!='on' and charCounter!="on" and removeExtraSpace!="on" and upperCase!="on"):
+        return HttpResponse("Please Select an Operation and Try Again")
+        
+    
+    return render(request,'analyze.html',params)
